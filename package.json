@@ -10,8 +10,7 @@
     "type": "git",
     "url": "https://github.com/sazzer/rope-js"
   },
-  "keywords": [
-  ],
+  "keywords": [],
   "author": "Graham Cox <graham@grahamcox.co.uk>",
   "license": "ISC",
   "bugs": {
@@ -23,5 +22,8 @@
     "codeclimate-test-reporter": "0.0.4",
     "istanbul": "^0.3.5",
     "mocha": "^2.0.1"
+  },
+  "dependencies": {
+    "libxmljs": "^0.12.0"
   }
 }

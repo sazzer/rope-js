@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rope xmlns="http://grahamcox.co.uk/rope/1.0">
+    <!-- Define a string -->
+    <string id="hello">Hello, World</string>
+    
+    <!-- Define a number -->
+    <number id="answer">42</number>
+    
+    <!-- Define a boolean value -->
+    <boolean id="true">false</boolean>
+    
+    <!-- Define an array of the first 5 fibonacci numbers -->
+    <array id="fibonacci">
+        <number>1</number>
+        <number>1</number>
+        <number>2</number>
+        <number>3</number>
+        <number>5</number>
+    </array>
+    
+    <!-- Define an object containing the phone numbers for The White House -->
+    <object id="whiteHouse">
+        <value key="comments"><string>202-456-1111</string></value>
+        <value key="switchboard"><string>202-456-1414</string></value>
+    </object>
+</rope>
