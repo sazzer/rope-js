@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="http://grahamcox.co.uk/rope/1.0"
+            xmlns:tns="http://grahamcox.co.uk/rope/1.0">
+            
+    <xsd:simpleType name="StringType">
+        <xsd:annotation>
+            <xsd:documentation>
+                Base type for string values
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string" />
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="NumberType">
+        <xsd:annotation>
+            <xsd:documentation>
+                Base type for numeric values
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:decimal" />
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="BooleanType">
+        <xsd:annotation>
+            <xsd:documentation>
+                Base type for boolean values
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:boolean" />
+    </xsd:simpleType>
+    
+    <xsd:complexType name="ArrayType">
+        <xsd:annotation>
+            <xsd:documentation>
+                Base type for array values
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:choice minOccurs="0" maxOccurs="unbounded">
+            <xsd:element name="string" type="tns:StringType" />
+            <xsd:element name="number" type="tns:NumberType" />
+            <xsd:element name="boolean" type="tns:BooleanType" />
+            <xsd:element name="array" type="tns:ArrayType" />
+            <xsd:element name="object" type="tns:ObjectType" />
+        </xsd:choice>
+    </xsd:complexType>
+    
+    <xsd:complexType name="ObjectEntryType">
+        <xsd:annotation>
+            <xsd:documentation>
+                Type for a single entry in an Object
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:choice minOccurs="1" maxOccurs="1">
+            <xsd:element name="string" type="tns:StringType" />
+            <xsd:element name="number" type="tns:NumberType" />
+            <xsd:element name="boolean" type="tns:BooleanType" />
+            <xsd:element name="array" type="tns:ArrayType" />
+            <xsd:element name="object" type="tns:ObjectType" />
+        </xsd:choice>
+        <xsd:attribute name="key" type="xsd:string" use="required" />
+    </xsd:complexType>
+    
+    <xsd:complexType name="ObjectType">
+        <xsd:annotation>
+            <xsd:documentation>
+                Base type for array values
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="value" type="tns:ObjectEntryType" minOccurs="0" maxOccurs="unbounded" />
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:attributeGroup name="IdentifiedAttrs">
+        <xsd:attribute name="id" type="xsd:string" use="optional" />
+    </xsd:attributeGroup>
+        
+    <xsd:complexType name="Rope">
+        <xsd:annotation>
+            <xsd:documentation>
+                Top level element containing all of the definitions in this Rope
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:choice minOccurs="0" maxOccurs="unbounded">
+                <xsd:element name="string">
+                    <xsd:complexType>
+                        <xsd:simpleContent>
+                            <xsd:extension base="tns:StringType">
+                                <xsd:attributeGroup ref="tns:IdentifiedAttrs" />
+                            </xsd:extension>
+                        </xsd:simpleContent>
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element name="number">
+                    <xsd:complexType>
+                        <xsd:simpleContent>
+                            <xsd:extension base="tns:NumberType">
+                                <xsd:attributeGroup ref="tns:IdentifiedAttrs" />
+                            </xsd:extension>
+                        </xsd:simpleContent>
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element name="boolean">
+                    <xsd:complexType>
+                        <xsd:simpleContent>
+                            <xsd:extension base="tns:BooleanType">
+                                <xsd:attributeGroup ref="tns:IdentifiedAttrs" />
+                            </xsd:extension>
+                        </xsd:simpleContent>
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element name="array">
+                    <xsd:complexType>
+                        <xsd:complexContent>
+                            <xsd:extension base="tns:ArrayType">
+                                <xsd:attributeGroup ref="tns:IdentifiedAttrs" />
+                            </xsd:extension>
+                        </xsd:complexContent>
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element name="object">
+                    <xsd:complexType>
+                        <xsd:complexContent>
+                            <xsd:extension base="tns:ObjectType">
+                                <xsd:attributeGroup ref="tns:IdentifiedAttrs" />
+                            </xsd:extension>
+                        </xsd:complexContent>
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:choice>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="rope" type="tns:Rope" />
+</xsd:schema>
